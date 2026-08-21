@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paint Coverage Calculator – Gallons Per Room | CalcHarbor</title>
+<meta name="description" content="Calculate paint gallons per room from wall dimensions, doors, windows, and coats. Free paint coverage calculator with cost estimates before the store run.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcharbor.pages.dev/paint-coverage-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcHarbor">
+<meta property="og:title" content="Paint Coverage Calculator – Gallons Per Room">
+<meta property="og:description" content="Turn room dimensions and coat counts into exact gallon requirements and cost.">
+<meta property="og:url" content="https://calcharbor.pages.dev/paint-coverage-calculator/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Paint Coverage Calculator",
+  "url": "https://calcharbor.pages.dev/paint-coverage-calculator/",
+  "applicationCategory": "HomeApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Free calculator that converts room dimensions, openings, and coat counts into paint gallons and total cost."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcharbor.pages.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Paint Coverage Calculator", "item": "https://calcharbor.pages.dev/paint-coverage-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many square feet does one gallon of paint actually cover?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Manufacturers typically quote 350 to 400 square feet per gallon on smooth primed walls. Rough texture, bare drywall, and dramatic color changes can drop real-world coverage toward 250 or 300 square feet, which is why planning with 350 keeps you safe."}
+    },
+    {
+      "@type": "Question",
+      "name": "Do I really need two coats?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Almost always yes. One coat rarely hides the old color evenly, especially over darker shades or repairs. Two coats deliver uniform color and durability; deep reds and blues over light walls often need a tinted gray primer plus two topcoats."}
+    },
+    {
+      "@type": "Question",
+      "name": "Should ceilings be included in the wall calculation?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Ceilings are usually painted a different finish and color, so this calculator counts walls only. To add a ceiling, multiply its length by width and divide by your coverage rate as a separate line item."}
+    },
+    {
+      "@type": "Question",
+      "name": "Is it better to buy one big can or several small ones?",
+      "acceptedAnswer": {"@type": "Answer", "text": "One larger container costs less per gallon and, more importantly, lets you box all the paint together so every wall matches perfectly. Small cans vary slightly between batches, which shows as subtle shading where one can ended and the next began."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="../" class="brand">Calc<span>Harbor</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="../tip-gratuity-calculator/">Tip</a>
+      <a href="../days-between-dates/">Date Span</a>
+      <a href="../final-grade-calculator/">Final Grade</a>
+      <a href="../gacha-pity-calculator/">Pity Odds</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../">Home</a></li>
+      <li><span aria-current="page">Paint Coverage Calculator</span></li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <h1>Paint Coverage Calculator</h1>
+    <p class="lede">Measure the room once, tell the tool about doors and coats, and walk into the store knowing the exact gallon count instead of guessing at the shelf.</p>
+  </section>
+
+  <div class="calc-card">
+    <h2 class="calc-title">Size Up Your Paint Order</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="roomLen">Room length (ft)</label>
+        <input type="number" id="roomLen" min="0" step="0.5" placeholder="14" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="roomWid">Room width (ft)</label>
+        <input type="number" id="roomWid" min="0" step="0.5" placeholder="12" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="wallHt">Wall height (ft)</label>
+        <input type="number" id="wallHt" min="0" step="0.5" value="8" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="doorsN">Doors</label>
+        <input type="number" id="doorsN" min="0" step="1" value="1" inputmode="numeric">
+        <p class="hint">Counted at 21 sq ft each.</p>
+      </div>
+      <div class="field">
+        <label for="winsN">Windows</label>
+        <input type="number" id="winsN" min="0" step="1" value="2" inputmode="numeric">
+        <p class="hint">Counted at 12 sq ft each.</p>
+      </div>
+      <div class="field">
+        <label for="coatsN">Coats</label>
+        <input type="number" id="coatsN" min="1" max="4" step="1" value="2" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="covRate">Coverage per gallon (sq ft)</label>
+        <input type="number" id="covRate" min="50" step="10" value="350" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="galPrice">Price per gallon ($, optional)</label>
+        <input type="number" id="galPrice" min="0" step="0.5" placeholder="38" inputmode="decimal">
+      </div>
+    </div>
+    <button class="btn" id="calcBtn" type="button">Estimate Gallons</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="results" id="results" hidden>
+      <div class="result-box">
+        <div class="result-label">Wall Area / Coat</div>
+        <div class="result-value" id="resArea">0</div>
+      </div>
+      <div class="result-box primary">
+        <div class="result-label">Gallons Needed</div>
+        <div class="result-value" id="resGal">0</div>
+      </div>
+      <div class="result-box" id="costWrap" hidden>
+        <div class="result-label">Paint Cost</div>
+        <div class="result-value" id="resCost">$0</div>
+      </div>
+    </div>
+  </div>
+
+  <article class="content">
+    <h2>Measuring the Room in Sixty Seconds</h2>
+    <ol>
+      <li>Measure the room's <strong>length and width</strong> along the floor, then the <strong>wall height</strong>, usually eight feet.</li>
+      <li>Count the <strong>doors and windows</strong>; standard sizes are already deducted at 21 and 12 square feet respectively.</li>
+      <li>Set the <strong>coat count</strong>. Two is the honest default for almost every repaint.</li>
+      <li>Leave <strong>coverage</strong> at 350 unless your cans state otherwise.</li>
+      <li>Add your local <strong>price per gallon</strong> for a budget figure, then press <strong>Estimate Gallons</strong>.</li>
+    </ol>
+
+    <h2>The Coverage Formula</h2>
+    <p>Wall area is the room's perimeter multiplied by height, minus the openings that swallow no paint:</p>
+    <div class="formula-block">walls = 2 &times; (length + width) &times; height<br>net = walls &minus; (doors &times; 21) &minus; (windows &times; 12)<br>gallons = ceiling( net &times; coats &divide; coverage )</div>
+    <p><strong>Example:</strong> a 14 by 12 bedroom with eight-foot ceilings has a perimeter of 52 feet, giving 416 square feet of wall. One door and two windows remove 45 square feet, leaving 371. Two coats demand painting 742 square feet, which at 350 per gallon works out to 2.12, rounding up to three gallons. At $38 each, the paint budget reads $114 before primer, tape, and rollers.</p>
+    <p>Rounding up matters more here than in most math. Paint varies between batches, so returning for a fourth of a gallon later risks a visible shade difference across the same wall. Leftover paint, meanwhile, stores for years as touch-up supply.</p>
+
+    <h2>What Changes Real-World Coverage</h2>
+    <ul>
+      <li><strong>Texture.</strong> Orange-peel and knockdown textures hide shadows but drink paint; expect 20 to 30 percent worse spread than smooth drywall.</li>
+      <li><strong>Color jumps.</strong> Going from navy to cream needs a gray-tinted primer coat first, effectively adding a third pass.</li>
+      <li><strong>New drywall.</strong> Bare board drinks primer like a sponge; always prime new construction before counting topcoats.</li>
+      <li><strong>Application method.</strong> Sprayers lose material to mist and need 10 percent more than rolling; cheap roller covers spit and streak, wasting passes.</li>
+      <li><strong>Humidity.</strong> Slow-drying conditions extend working time but do not change spread rate much; extreme heat does, by drying edges mid-stroke.</li>
+    </ul>
+
+    <h3>Floors Follow Different Rules Entirely</h3>
+    <p>Wall projects live in area units, but many room makeovers continue onto the floor, and flooring materials refuse to be measured in gallons. Hardwood planks and laminate are sold by the linear foot at a given board width, while boxes quote square footage per carton. When the project crosses from walls to floors, translating between those systems becomes necessary, and a quick way to handle <a href="https://usefreecalculator.com/Tools/sqft-to-linear-feet" rel="noopener">square feet to linear feet for flooring orders</a> prevents both an unfinished strip along one wall and a pallet of surplus planks.</p>
+
+    <h3>Store-Day Checklist</h3>
+    <ul>
+      <li>Bring your gallon figure and ask about batch numbers; one batch per room guarantees uniform color.</li>
+      <li>Buy painter's tape, angled brushes for corners, and a quality roller cover in the same trip.</li>
+      <li>If the store mixes custom colors, request a sample pint first; $5 beats repainting a whole wall.</li>
+      <li>Keep the receipt and leftover cans; most retailers accept returns on unopened gallons.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>How many square feet does one gallon of paint actually cover?</summary>
+        <p>Manufacturers typically quote 350 to 400 square feet per gallon on smooth primed walls. Rough texture, bare drywall, and dramatic color changes can drop real-world coverage toward 250 or 300 square feet, which is why planning with 350 keeps you safe.</p>
+      </details>
+      <details>
+        <summary>Do I really need two coats?</summary>
+        <p>Almost always yes. One coat rarely hides the old color evenly, especially over darker shades or repairs. Two coats deliver uniform color and durability; deep reds and blues over light walls often need a tinted gray primer plus two topcoats.</p>
+      </details>
+      <details>
+        <summary>Should ceilings be included in the wall calculation?</summary>
+        <p>Ceilings are usually painted a different finish and color, so this calculator counts walls only. To add a ceiling, multiply its length by width and divide by your coverage rate as a separate line item.</p>
+      </details>
+      <details>
+        <summary>Is it better to buy one big can or several small ones?</summary>
+        <p>One larger container costs less per gallon and, more importantly, lets you box all the paint together so every wall matches perfectly. Small cans vary slightly between batches, which shows as subtle shading where one can ended and the next began.</p>
+      </details>
+    </div>
+
+    <h2>Continue Along the Docks</h2>
+    <ul>
+      <li><a href="../days-between-dates/">Days Between Dates</a> &ndash; schedule the project across working days.</li>
+      <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity Calculator</a> &ndash; thank the friend who helped you move furniture.</li>
+      <li><a href="../final-grade-calculator/">Final Grade Calculator</a> &ndash; back to studying after the renovation break.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Calc<span>Harbor</span></div>
+        <p class="footer-desc">Five careful calculators for gratuities, date spans, paint, exams, and pity odds. Free, fast, and private by design.</p>
+      </div>
+      <div>
+        <h2>The Fleet</h2>
+        <ul>
+          <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity</a></li>
+          <li><a href="../days-between-dates/">Days Between Dates</a></li>
+          <li><a href="../">Paint Coverage</a></li>
+          <li><a href="../final-grade-calculator/">Final Grade</a></li>
+          <li><a href="../gacha-pity-calculator/">Gacha Pity</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ashore</h2>
+        <ul>
+          <li><a href="../">Home Harbor</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../privacy.html">Privacy Notes</a></li>
+          <li><a href="../sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 CalcHarbor. Computed locally, served from the edge.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lenIn=document.getElementById('roomLen'),
+      widIn=document.getElementById('roomWid'),
+      htIn=document.getElementById('wallHt'),
+      drIn=document.getElementById('doorsN'),
+      wnIn=document.getElementById('winsN'),
+      ctIn=document.getElementById('coatsN'),
+      cvIn=document.getElementById('covRate'),
+      prIn=document.getElementById('galPrice'),
+      btn=document.getElementById('calcBtn'),
+      errBox=document.getElementById('errorMsg'),
+      resWrap=document.getElementById('results'),
+      resArea=document.getElementById('resArea'),
+      resGal=document.getElementById('resGal'),
+      resCost=document.getElementById('resCost'),
+      costWrap=document.getElementById('costWrap');
+
+  function run(){
+    errBox.style.display='none';
+    var L=parseFloat(lenIn.value),
+        W=parseFloat(widIn.value),
+        H=parseFloat(htIn.value),
+        dr=parseInt(drIn.value,10)||0,
+        wn=parseInt(wnIn.value,10)||0,
+        ct=parseInt(ctIn.value,10),
+        cov=parseFloat(cvIn.value),
+        pr=parseFloat(prIn.value);
+    if(isNaN(L)||L<=0||isNaN(W)||W<=0||isNaN(H)||H<=0){errBox.textContent='Room length, width, and wall height must all be positive.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(ct)||ct<1||ct>4){errBox.textContent='Coats must be between 1 and 4.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(cov)||cov<50){errBox.textContent='Coverage must be at least 50 square feet per gallon.';errBox.style.display='block';resWrap.hidden=true;return;}
+    var gross=2*(L+W)*H,
+        net=Math.max(0,gross-dr*21-wn*12),
+        gal=Math.ceil(net*ct/cov);
+    resArea.textContent=net.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft';
+    resGal.textContent=gal;
+    if(!isNaN(pr)&&pr>=0){
+      resCost.textContent='$'+(gal*pr).toFixed(0);
+      costWrap.hidden=false;
+    }else{
+      costWrap.hidden=true;
+    }
+    resWrap.hidden=false;
+  }
+
+  btn.addEventListener('click',run);
+  [lenIn,widIn,htIn].forEach(function(el){
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){run();}});
+  });
+})();
+</script>
+</body>
+</html>

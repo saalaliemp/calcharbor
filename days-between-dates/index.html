@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Days Between Dates – Calendar &amp; Business Day Span | CalcHarbor</title>
+<meta name="description" content="Count days between any two dates, including business days. Free date span calculator for deadlines, trips, contracts, and personal milestones.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcharbor.pages.dev/days-between-dates/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcHarbor">
+<meta property="og:title" content="Days Between Dates – Calendar &amp; Business Day Span">
+<meta property="og:description" content="Measure any date span in days, weeks, and working days in one calculation.">
+<meta property="og:url" content="https://calcharbor.pages.dev/days-between-dates/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Days Between Dates Calculator",
+  "url": "https://calcharbor.pages.dev/days-between-dates/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Free calculator that measures the span between two dates in total days, weeks, calendar units, and business days."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcharbor.pages.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Days Between Dates", "item": "https://calcharbor.pages.dev/days-between-dates/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How are business days different from calendar days?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Calendar days count everything, weekends included. Business days count only Monday through Friday, which is how most contracts, shipping estimates, and office deadlines are written. A span of seven calendar days can contain as few as five business days."}
+    },
+    {
+      "@type": "Question",
+      "name": "Does the span include both endpoint dates?",
+      "acceptedAnswer": {"@type": "Answer", "text": "The standard convention counts the difference, so March 1 to March 10 is nine days and the end date itself is not counted. If your situation needs both endpoints included, such as hotel stays or rental periods, add one day to the result."}
+    },
+    {
+      "@type": "Question",
+      "name": "What happens when a public holiday falls inside the span?",
+      "acceptedAnswer": {"@type": "Answer", "text": "This calculator counts weekdays without checking holiday calendars, since holidays vary by country and region. If precision matters for a legal deadline, subtract observed holidays manually from the business day figure."}
+    },
+    {
+      "@type": "Question",
+      "name": "Can I measure a span that ended in the past?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Yes. Both fields accept any dates in any order of time; the calculator always returns the positive distance between them, whether that stretch ended decades ago or has not started yet."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="../" class="brand">Calc<span>Harbor</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="../tip-gratuity-calculator/">Tip</a>
+      <a href="../paint-coverage-calculator/">Paint</a>
+      <a href="../final-grade-calculator/">Final Grade</a>
+      <a href="../gacha-pity-calculator/">Pity Odds</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../">Home</a></li>
+      <li><span aria-current="page">Days Between Dates</span></li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <h1>Days Between Dates Calculator</h1>
+    <p class="lede">Two dates in, every useful measurement out: raw days, weeks and remainder, calendar months, and the working-day figure that contracts actually care about.</p>
+  </section>
+
+  <div class="calc-card">
+    <h2 class="calc-title">Measure Any Span</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="fromDate">From date</label>
+        <input type="date" id="fromDate">
+      </div>
+      <div class="field">
+        <label for="toDate">To date</label>
+        <input type="date" id="toDate">
+        <p class="hint">Order does not matter.</p>
+      </div>
+    </div>
+    <button class="btn" id="calcBtn" type="button">Measure the Span</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="results" id="results" hidden>
+      <div class="result-box primary">
+        <div class="result-label">Total Days</div>
+        <div class="result-value" id="resTotal">0</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Business Days</div>
+        <div class="result-value" id="resBiz">0</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Weeks + Days</div>
+        <div class="result-value" id="resWeeks">0w 0d</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Calendar Units</div>
+        <div class="result-value" id="resCal">0m 0d</div>
+      </div>
+    </div>
+  </div>
+
+  <article class="content">
+    <h2>Getting a Measurement</h2>
+    <ol>
+      <li>Fill in the <strong>from date</strong>, any day in the past or future.</li>
+      <li>Fill in the <strong>to date</strong>. Leaving it blank defaults to today, handy for running tallies like days since a launch.</li>
+      <li>Press <strong>Measure the Span</strong> to receive four readings at once: total days, business days, weeks with leftover days, and a months-plus-days reading.</li>
+      <li>Use whichever unit matches your context: lawyers want business days, travelers want weeks, and anniversary cards usually quote years and months.</li>
+    </ol>
+
+    <h2>Why Spans Are Trickier Than Subtraction</h2>
+    <p>Dates live on an uneven grid. Months run 28 to 31 days, February grows every fourth year, and weeks ignore month boundaries entirely. Counting correctly means walking the actual calendar rather than dividing by averages:</p>
+    <div class="formula-block">total&nbsp;days = |date2 &minus; date1| &divide; 86,400,000&nbsp;ms<br>business&nbsp;days = Mondays&ndash;Fridays inside the span<br>calendar&nbsp;units = whole months first, then leftover days</div>
+    <p><strong>Example:</strong> from January 6 to March 27 of a non-leap year. The raw distance is 80 days, which reads as 11 weeks and 3 days. Walking whole months gives two months plus 21 days. For the business-day figure, the calculator steps through every day and keeps only Mondays through Fridays, landing at 58. Anyone quoting a "ten business day" turnaround now knows that stretch really means fourteen calendar days whenever two weekends intervene.</p>
+
+    <h2>Where Each Unit Earns Its Keep</h2>
+    <ul>
+      <li><strong>Total days</strong> suit habit streaks, trial expirations, and warranty windows measured continuously.</li>
+      <li><strong>Business days</strong> govern notice periods, invoice terms like net-30, permit approvals, and shipping promises.</li>
+      <li><strong>Weeks plus days</strong> match how pregnancy due dates, training plans, and event countdowns are discussed.</li>
+      <li><strong>Months and days</strong> fit leases, subscriptions, and the way people naturally describe elapsed time.</li>
+    </ul>
+
+    <h3>Milestones Deserve Their Own Math</h3>
+    <p>Personal dates carry more weight than contract dates, and they reward rounding up to meaningful numbers. Couples and close friends often celebrate the 100th day together, yearly marks, and decade anniversaries, each discovered by measuring forward from a starting date. When you want those milestones laid out automatically rather than computed by hand, a tool built to <a href="https://usefreecalculator.com/Tools/anniversary-calculator" rel="noopener">track your anniversary milestones</a> lists upcoming dates worth putting in the calendar, which saves doing this arithmetic every year on the morning of.</p>
+
+    <h3>Planning Around Working Days</h3>
+    <ul>
+      <li>Quote deadlines in business days explicitly; "two weeks" invites weekend-counting disputes.</li>
+      <li>When a deadline lands on a Saturday, most jurisdictions roll it to the next business day, but contracts sometimes say otherwise.</li>
+      <li>Add a buffer day per public holiday inside long spans instead of trusting any tool to know your local calendar.</li>
+      <li>For international teams, remember that Saturday and Sunday are not universal rest days.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>How are business days different from calendar days?</summary>
+        <p>Calendar days count everything, weekends included. Business days count only Monday through Friday, which is how most contracts, shipping estimates, and office deadlines are written. A span of seven calendar days can contain as few as five business days.</p>
+      </details>
+      <details>
+        <summary>Does the span include both endpoint dates?</summary>
+        <p>The standard convention counts the difference, so March 1 to March 10 is nine days and the end date itself is not counted. If your situation needs both endpoints included, such as hotel stays or rental periods, add one day to the result.</p>
+      </details>
+      <details>
+        <summary>What happens when a public holiday falls inside the span?</summary>
+        <p>This calculator counts weekdays without checking holiday calendars, since holidays vary by country and region. If precision matters for a legal deadline, subtract observed holidays manually from the business day figure.</p>
+      </details>
+      <details>
+        <summary>Can I measure a span that ended in the past?</summary>
+        <p>Yes. Both fields accept any dates in any order of time; the calculator always returns the positive distance between them, whether that stretch ended decades ago or has not started yet.</p>
+      </details>
+    </div>
+
+    <h2>Continue Along the Docks</h2>
+    <ul>
+      <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity Calculator</a> &ndash; settle service bills at any rate.</li>
+      <li><a href="../gacha-pity-calculator/">Gacha Pity Calculator</a> &ndash; know your position before pulling.</li>
+      <li><a href="../final-grade-calculator/">Final Grade Calculator</a> &ndash; turn goals into required scores.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Calc<span>Harbor</span></div>
+        <p class="footer-desc">Five careful calculators for gratuities, date spans, paint, exams, and pity odds. Free, fast, and private by design.</p>
+      </div>
+      <div>
+        <h2>The Fleet</h2>
+        <ul>
+          <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity</a></li>
+          <li><a href="../">Days Between Dates</a></li>
+          <li><a href="../paint-coverage-calculator/">Paint Coverage</a></li>
+          <li><a href="../final-grade-calculator/">Final Grade</a></li>
+          <li><a href="../gacha-pity-calculator/">Gacha Pity</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ashore</h2>
+        <ul>
+          <li><a href="../">Home Harbor</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../privacy.html">Privacy Notes</a></li>
+          <li><a href="../sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 CalcHarbor. Computed locally, served from the edge.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var fIn=document.getElementById('fromDate'),
+      tIn=document.getElementById('toDate'),
+      btn=document.getElementById('calcBtn'),
+      errBox=document.getElementById('errorMsg'),
+      resWrap=document.getElementById('results'),
+      resTotal=document.getElementById('resTotal'),
+      resBiz=document.getElementById('resBiz'),
+      resWeeks=document.getElementById('resWeeks'),
+      resCal=document.getElementById('resCal');
+
+  function parse(v){
+    var p=v.split('-');
+    return new Date(+p[0],+p[1]-1,+p[2]);
+  }
+
+  function run(){
+    errBox.style.display='none';
+    if(!fIn.value||!tIn.value){errBox.textContent='Both dates are needed.';errBox.style.display='block';resWrap.hidden=true;return;}
+    var a=parse(fIn.value),
+        b=parse(tIn.value),
+        swap=false;
+    if(b<a){var tmp=a;a=b;b=tmp;swap=true;}
+    var MS=86400000,
+        total=Math.round((b-a)/MS),
+        biz=0,
+        cur=new Date(a);
+    while(cur<b){
+      var dow=cur.getDay();
+      if(dow!==0&&dow!==6){biz++;}
+      cur.setDate(cur.getDate()+1);
+    }
+    var y=b.getFullYear()-a.getFullYear(),
+        m=b.getMonth()-a.getMonth(),
+        d=b.getDate()-a.getDate();
+    if(d<0){
+      m--;
+      d+=new Date(b.getFullYear(),b.getMonth(),0).getDate();
+    }
+    if(m<0){y--;m+=12;}
+    resTotal.textContent=total.toLocaleString();
+    resBiz.textContent=biz.toLocaleString();
+    resWeeks.textContent=Math.floor(total/7)+'w '+(total%7)+'d';
+    resCal.textContent=(y*12+m)+'m '+d+'d';
+    resWrap.hidden=false;
+  }
+
+  btn.addEventListener('click',run);
+  [fIn,tIn].forEach(function(el){
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){run();}});
+  });
+})();
+</script>
+</body>
+</html>

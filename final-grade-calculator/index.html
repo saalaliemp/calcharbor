@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Grade Calculator – Score Needed on the Exam | CalcHarbor</title>
+<meta name="description" content="Find the exact score you need on the final exam. Free final grade calculator turns your current average, test weight, and goal into a clear target.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcharbor.pages.dev/final-grade-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcHarbor">
+<meta property="og:title" content="Final Grade Calculator – Score Needed on the Exam">
+<meta property="og:description" content="Enter your average, the exam weight, and your goal to learn the exact score required.">
+<meta property="og:url" content="https://calcharbor.pages.dev/final-grade-calculator/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Final Grade Calculator",
+  "url": "https://calcharbor.pages.dev/final-grade-calculator/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Free calculator that computes the exact score needed on a weighted final exam to reach any target course grade."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcharbor.pages.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Final Grade Calculator", "item": "https://calcharbor.pages.dev/final-grade-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What score do I need on the final to pass the class?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Enter your current average, the final's weight, and your school's passing threshold, commonly 60 or 70 percent, as the goal. The calculator returns the minimum exam score that produces that overall result."}
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the calculator say my target needs over 100 percent?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Because the goal is mathematically out of reach with the remaining weight. When the required score exceeds 100, no possible exam result achieves it, and the realistic options become negotiating extra credit or accepting the highest attainable grade."}
+    },
+    {
+      "@type": "Question",
+      "name": "Does a negative required score mean I already secured the grade?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Exactly. A negative figure means even a zero on the final leaves you at or above the goal, so the target is locked in regardless of exam day performance."}
+    },
+    {
+      "@type": "Question",
+      "name": "How do I handle a final split across two exams?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Treat them as separate assignments: run the calculation once with the first exam's weight to find its target, then use your projected result to solve for the second. Alternatively, combine both weights into one entry if scores will be merged anyway."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="../" class="brand">Calc<span>Harbor</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="../tip-gratuity-calculator/">Tip</a>
+      <a href="../days-between-dates/">Date Span</a>
+      <a href="../paint-coverage-calculator/">Paint</a>
+      <a href="../gacha-pity-calculator/">Pity Odds</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../">Home</a></li>
+      <li><span aria-current="page">Final Grade Calculator</span></li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <h1>Final Grade Calculator</h1>
+    <p class="lede">Stop guessing what the exam demands. Your current standing, the test's weight, and your goal go in; one precise number comes out.</p>
+  </section>
+
+  <div class="calc-card">
+    <h2 class="calc-title">Solve for the Required Score</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="curGrade">Current grade (%)</label>
+        <input type="number" id="curGrade" min="0" max="100" step="0.1" placeholder="78.5" inputmode="decimal">
+        <p class="hint">Your standing before the final.</p>
+      </div>
+      <div class="field">
+        <label for="finWeight">Final's weight (%)</label>
+        <input type="number" id="finWeight" min="1" max="100" step="1" placeholder="30" inputmode="numeric">
+        <p class="hint">From the syllabus.</p>
+      </div>
+      <div class="field">
+        <label for="goalGrade">Target overall (%)</label>
+        <input type="number" id="goalGrade" min="0" max="100" step="0.1" placeholder="80" inputmode="decimal">
+        <p class="hint">The course grade you want.</p>
+      </div>
+    </div>
+    <button class="btn" id="calcBtn" type="button">Calculate Target</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="results" id="results" hidden>
+      <div class="result-box primary">
+        <div class="result-label">Required on Final</div>
+        <div class="result-value" id="resReq">0%</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Verdict</div>
+        <div class="result-value" id="resVerdict">&mdash;</div>
+      </div>
+    </div>
+    <div class="info-box" id="adviceBox" hidden>
+      <p id="adviceText" style="margin-bottom:0"></p>
+    </div>
+  </div>
+
+  <article class="content">
+    <h2>Three Inputs, One Answer</h2>
+    <ol>
+      <li>Enter your <strong>current grade</strong> exactly as your learning platform reports it, decimals included.</li>
+      <li>Enter the <strong>final exam's weight</strong> from the syllabus, typically between 20 and 40 percent.</li>
+      <li>Enter the <strong>overall grade</strong> you are aiming for.</li>
+      <li>Press <strong>Calculate Target</strong>. The headline number is the exam score that lands your goal precisely.</li>
+      <li>Read the verdict line: targets below 100 are achievable, negative targets are already secured, and anything above 100 needs a plan B.</li>
+    </ol>
+
+    <h2>The Weighted-Average Algebra</h2>
+    <p>A course grade is a weighted blend of work already done and work still ahead. Solving for the exam score means isolating the unknown:</p>
+    <div class="formula-block">required = (goal &minus; current &times; (1 &minus; w)) &divide; w&nbsp;&nbsp;&nbsp;&nbsp;where w = weight &divide; 100</div>
+    <p><strong>Example:</strong> sitting at 78.5 percent with a final worth 30 percent, chasing an 80 overall. The completed coursework contributes 78.5 &times; 0.70 = 54.95 points. The goal needs 80, so the exam must supply 25.05 points, and dividing by its 0.30 share demands 83.5 percent on exam day. That single number converts vague anxiety into a concrete study quota: roughly a B+ performance, very reachable with focused review of the weakest three units.</p>
+
+    <h2>Reading Extreme Results</h2>
+    <ul>
+      <li><strong>Required above 100:</strong> impossible through the exam alone. Ask the instructor about extra credit immediately, and aim to maximize rather than reach.</li>
+      <li><strong>Required between 90 and 100:</strong> possible but unforgiving; every known question type deserves practice reps.</li>
+      <li><strong>Required below 50:</strong> the pressure is off. Protect the baseline with light review instead of exhausting cramming.</li>
+      <li><strong>Negative required:</strong> mathematically secured. Show up, write your name, keep the streak intact.</li>
+    </ul>
+
+    <h3>Where Curves and Reverse Percentages Enter</h3>
+    <p>Two classroom twists change these numbers after the fact. First, some instructors adjust exam results when a test runs unusually harsh, shifting the whole distribution upward; students caught in that system can check how their section scales with a dedicated <a href="https://usefreecalculator.com/Tools/grade-curve-calculator" rel="noopener">grade curve calculator</a> instead of reverse-engineering the syllabus policy by hand.</p>
+    <p>Second, grades love percentage reversals in disguise. Figuring out what earlier average would have made today's target comfortable, or what a dropped quiz really cost, means running percentages backward from a known result. Whenever homework calls for that direction of travel, a tool built to <a href="https://usefreecalculator.com/Tools/reverse-percentage-calculator" rel="noopener">calculate reverse percentages step by step</a> keeps the arithmetic honest while you focus on the studying that actually moves the number.</p>
+
+    <h3>Study Allocation, Guided by the Target</h3>
+    <ul>
+      <li>Match study hours to point impact: units weighing heaviest on the final deserve the first passes.</li>
+      <li>Convert the required score into a question budget, such as "missing at most eight of fifty," to make practice grading objective.</li>
+      <li>Re-run this calculator after each mock exam; shrinking requirements are the best motivation metric there is.</li>
+      <li>Sleep beats midnight review when the requirement sits near your ceiling, since fatigue taxes exactly the recall you need.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>What score do I need on the final to pass the class?</summary>
+        <p>Enter your current average, the final's weight, and your school's passing threshold, commonly 60 or 70 percent, as the goal. The calculator returns the minimum exam score that produces that overall result.</p>
+      </details>
+      <details>
+        <summary>Why does the calculator say my target needs over 100 percent?</summary>
+        <p>Because the goal is mathematically out of reach with the remaining weight. When the required score exceeds 100, no possible exam result achieves it, and the realistic options become negotiating extra credit or accepting the highest attainable grade.</p>
+      </details>
+      <details>
+        <summary>Does a negative required score mean I already secured the grade?</summary>
+        <p>Exactly. A negative figure means even a zero on the final leaves you at or above the goal, so the target is locked in regardless of exam day performance.</p>
+      </details>
+      <details>
+        <summary>How do I handle a final split across two exams?</summary>
+        <p>Treat them as separate assignments: run the calculation once with the first exam's weight to find its target, then use your projected result to solve for the second. Alternatively, combine both weights into one entry if scores will be merged anyway.</p>
+      </details>
+    </div>
+
+    <h2>Continue Along the Docks</h2>
+    <ul>
+      <li><a href="../days-between-dates/">Days Between Dates</a> &ndash; count down to exam week precisely.</li>
+      <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity Calculator</a> &ndash; celebrate the semester's end properly.</li>
+      <li><a href="../paint-coverage-calculator/">Paint Coverage Calculator</a> &ndash; refresh the room between terms.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Calc<span>Harbor</span></div>
+        <p class="footer-desc">Five careful calculators for gratuities, date spans, paint, exams, and pity odds. Free, fast, and private by design.</p>
+      </div>
+      <div>
+        <h2>The Fleet</h2>
+        <ul>
+          <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity</a></li>
+          <li><a href="../days-between-dates/">Days Between Dates</a></li>
+          <li><a href="../paint-coverage-calculator/">Paint Coverage</a></li>
+          <li><a href="../final-grade-calculator/">Final Grade</a></li>
+          <li><a href="../gacha-pity-calculator/">Gacha Pity</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ashore</h2>
+        <ul>
+          <li><a href="../">Home Harbor</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../privacy.html">Privacy Notes</a></li>
+          <li><a href="../sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 CalcHarbor. Computed locally, served from the edge.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var cIn=document.getElementById('curGrade'),
+      wIn=document.getElementById('finWeight'),
+      gIn=document.getElementById('goalGrade'),
+      btn=document.getElementById('calcBtn'),
+      errBox=document.getElementById('errorMsg'),
+      resWrap=document.getElementById('results'),
+      resReq=document.getElementById('resReq'),
+      resVerdict=document.getElementById('resVerdict'),
+      adviceBox=document.getElementById('adviceBox'),
+      adviceText=document.getElementById('adviceText');
+
+  function run(){
+    errBox.style.display='none';
+    var cur=parseFloat(cIn.value),
+        w=parseFloat(wIn.value),
+        goal=parseFloat(gIn.value);
+    if(isNaN(cur)||cur<0||cur>100){errBox.textContent='Current grade must be between 0 and 100.';errBox.style.display='block';resWrap.hidden=true;adviceBox.hidden=true;return;}
+    if(isNaN(w)||w<=0||w>100){errBox.textContent='Final weight must be between 1 and 100 percent.';errBox.style.display='block';resWrap.hidden=true;adviceBox.hidden=true;return;}
+    if(isNaN(goal)||goal<0||goal>100){errBox.textContent='Target grade must be between 0 and 100.';errBox.style.display='block';resWrap.hidden=true;adviceBox.hidden=true;return;}
+    var wd=w/100,
+        req=(goal-cur*(1-wd))/wd;
+    resReq.textContent=req.toFixed(1)+'%';
+    var verdict,advice;
+    if(req<0){
+      verdict='Secured';
+      advice='Even a zero on the final keeps you at or above '+goal.toFixed(1)+'%. The target is mathematically locked in.';
+    }else if(req<=100){
+      verdict=req<=60?'Comfortable':(req<=85?'Achievable':'Demanding');
+      advice='Scoring '+req.toFixed(1)+'% on the final delivers exactly '+goal.toFixed(1)+'% overall. Build your review plan around that number.';
+    }else{
+      verdict='Out of reach';
+      advice='No exam score can reach '+goal.toFixed(1)+'% overall; the ceiling with a perfect 100 is '+(cur*(1-wd)+wd*100).toFixed(1)+'%. Consider extra credit conversations now.';
+    }
+    resVerdict.textContent=verdict;
+    adviceText.textContent=advice;
+    resWrap.hidden=false;
+    adviceBox.hidden=false;
+  }
+
+  btn.addEventListener('click',run);
+  [cIn,wIn,gIn].forEach(function(el){
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){run();}});
+  });
+})();
+</script>
+</body>
+</html>

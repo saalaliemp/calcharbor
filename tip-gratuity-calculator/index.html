@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tip &amp; Gratuity Calculator – Every Service Situation | CalcHarbor</title>
+<meta name="description" content="Calculate tips for restaurants, salons, rides, and deliveries at any rate you choose. Free gratuity calculator with optional party division and rounding.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcharbor.pages.dev/tip-gratuity-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcHarbor">
+<meta property="og:title" content="Tip &amp; Gratuity Calculator – Every Service Situation">
+<meta property="og:description" content="Apply any gratuity rate to any bill and divide it across the table in one motion.">
+<meta property="og:url" content="https://calcharbor.pages.dev/tip-gratuity-calculator/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Tip & Gratuity Calculator",
+  "url": "https://calcharbor.pages.dev/tip-gratuity-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Free calculator that applies any gratuity rate to a bill, with optional division across a party and sensible rounding."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcharbor.pages.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Tip & Gratuity Calculator", "item": "https://calcharbor.pages.dev/tip-gratuity-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is tipping expected the same way in every country?",
+      "acceptedAnswer": {"@type": "Answer", "text": "No. The United States expects substantial gratuities because server wages legally count tips toward minimum pay. Japan treats tipping as confusing or even rude, most of Western Europe includes a service charge and welcomes small rounding up, and customs elsewhere fall everywhere between. Research your destination before traveling rather than exporting home habits."}
+    },
+    {
+      "@type": "Question",
+      "name": "Should I tip a percentage of the whole bill when alcohol dominates it?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Etiquette writers often suggest tipping 15 to 20 percent on food and around 10 percent on expensive bottles, since opening a bottle takes similar effort regardless of price. A simple compromise many tables use is tipping the full rate on everything under $100 of alcohol and half rate above it."}
+    },
+    {
+      "@type": "Question",
+      "name": "How does tipping work when a restaurant adds a service charge?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Read the line carefully. A service charge is not automatically a tip; in many places it belongs to the house unless the menu states otherwise. If a 18 to 20 percent service charge appears on a large party's check, additional tipping becomes optional rather than expected."}
+    },
+    {
+      "@type": "Question",
+      "name": "What about tipping on free items like comped desserts?",
+      "acceptedAnswer": {"@type": "Answer", "text": "The customary move is to tip on what the comped item would have cost, because the server performed identical work. Regulars who tip generously on comps tend to receive them again."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="../" class="brand">Calc<span>Harbor</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="../days-between-dates/">Date Span</a>
+      <a href="../paint-coverage-calculator/">Paint</a>
+      <a href="../final-grade-calculator/">Final Grade</a>
+      <a href="../gacha-pity-calculator/">Pity Odds</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../">Home</a></li>
+      <li><span aria-current="page">Tip &amp; Gratuity Calculator</span></li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <h1>Tip &amp; Gratuity Calculator</h1>
+    <p class="lede">Set any rate for any service, see the amount instantly, and let the tool divide the total if the whole table is chipping in.</p>
+  </section>
+
+  <div class="calc-card">
+    <h2 class="calc-title">Work Out the Gratuity</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="billTotal">Bill total ($)</label>
+        <input type="number" id="billTotal" min="0" step="0.01" placeholder="92.75" inputmode="decimal">
+        <p class="hint">Tax included or excluded, your call.</p>
+      </div>
+      <div class="field">
+        <label for="ratePreset">Common rates</label>
+        <select id="ratePreset">
+          <option value="">Choose&hellip;</option>
+          <option value="10">10% &ndash; minimal service</option>
+          <option value="15">15% &ndash; standard</option>
+          <option value="18">18% &ndash; good</option>
+          <option value="20">20% &ndash; excellent</option>
+          <option value="25">25% &ndash; exceptional</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="customRate">Or custom rate (%)</label>
+        <input type="number" id="customRate" min="0" max="100" step="0.5" placeholder="17.5" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="diners">Splitting between</label>
+        <input type="number" id="diners" min="1" step="1" value="1" inputmode="numeric">
+        <p class="hint">People sharing the payment.</p>
+      </div>
+    </div>
+    <button class="btn" id="calcBtn" type="button">Compute Gratuity</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="results" id="results" hidden>
+      <div class="result-box">
+        <div class="result-label">Gratuity</div>
+        <div class="result-value" id="resGrat">$0.00</div>
+      </div>
+      <div class="result-box primary">
+        <div class="result-label">Combined Total</div>
+        <div class="result-value" id="resComb">$0.00</div>
+      </div>
+      <div class="result-box" id="shareWrap" hidden>
+        <div class="result-label">Each Person Pays</div>
+        <div class="result-value" id="resShare">$0.00</div>
+      </div>
+    </div>
+  </div>
+
+  <article class="content">
+    <h2>Operating the Calculator</h2>
+    <ol>
+      <li>Enter the <strong>bill total</strong> exactly as printed. Whether tax belongs in the base is your choice; the convention debate is covered below.</li>
+      <li>Pick a <strong>common rate</strong> from the list, or type any figure into the custom field for situations like 12 percent room service or 22 percent holiday dinners.</li>
+      <li>If several people are paying together, set how many are <strong>splitting</strong>.</li>
+      <li>Press <strong>Compute Gratuity</strong>. You receive the gratuity itself, the combined total, and each person's share when splitting.</li>
+    </ol>
+
+    <h2>The Arithmetic, Written Out</h2>
+    <p>Everything here rests on one multiplication and, optionally, one division:</p>
+    <div class="formula-block">gratuity = bill &times; rate<br>each&nbsp;pays = (bill + gratuity) &divide; diners</div>
+    <p><strong>Example:</strong> a salon color service costs $140 and the client wants to acknowledge excellent work at 20 percent. The gratuity comes to $28, bringing the day's total to $168. Splitting that across two friends treating themselves together means $84 each. Change the rate to 15 percent and the figures become $21, $161, and $80.50, which shows how sharply the rate choice moves real money.</p>
+    <p>Rounding deserves a deliberate decision rather than an accident. Rounding the gratuity up to the next dollar is a small kindness that costs pennies; rounding each person's share up keeps cash collection painless. Card payments make exact cents easy, but the person collecting five different transfers will thank you for clean numbers.</p>
+
+    <h2>Rates That Fit Each Service</h2>
+    <p>Customs differ more by setting than most people expect, so this table gathers widely cited norms:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Usual Range</th><th>Worth Knowing</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Full-service dining</td><td>15&ndash;20%</td><td>Above 20% signals memorable service</td></tr>
+          <tr><td>Coffee counters</td><td>$0.50&ndash;$1</td><td>Jar tips get pooled across staff</td></tr>
+          <tr><td>Hair services</td><td>15&ndash;20%</td><td>Colorists' assistants often get $5 separately</td></tr>
+          <tr><td>Tattoo artists</td><td>15&ndash;25%</td><td>Frequently cash, given shop policies</td></tr>
+          <tr><td>Rideshare trips</td><td>10&ndash;15%</td><td>Helping with luggage earns the top of range</td></tr>
+          <tr><td>Grocery delivery</td><td>$3&ndash;$6</td><td>Bad weather justifies doubling</td></tr>
+          <tr><td>Hotel housekeeping</td><td>$2&ndash;$5 nightly</td><td>Daily leaving beats one lump sum; staff rotate</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>The Tax Question, Settled Practically</h2>
+    <p>Purists argue gratuity should apply to the pre-tax subtotal since tax funds government, not service. Practically, the difference on a typical dinner runs under a dollar, and most servers never know which base a table used. Choose pre-tax if you enjoy precision; choose the printed total if you prefer speed. Consistency matters more than the side you pick.</p>
+
+    <h2>When the Bill Itself Is the Hard Part</h2>
+    <p>Gratuity math stays simple even when the underlying bill is not. Shared appetizers, individual entrees, someone's drink order arriving late, and a coupon covering only part of the table all complicate the base number before any rate touches it. Groups who want the division handled properly, item by item rather than as one lump, find it easiest to <a href="https://usefreecalculator.com/Tools/split-bill-calculator" rel="noopener">split any dinner bill without arguments</a> using a purpose-built splitter, then bring the settled subtotal back here for the gratuity line.</p>
+
+    <h3>Three Habits of Smooth Tippers</h3>
+    <ul>
+      <li>Decide the rate before the check arrives so the mood of the moment does not decide it for you.</li>
+      <li>Keep small bills for hotel and coffee situations where percentages feel absurd.</li>
+      <li>When splitting, collect one payment method per couple rather than per person; six card swipes slow the whole room's exit.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>Is tipping expected the same way in every country?</summary>
+        <p>No. The United States expects substantial gratuities because server wages legally count tips toward minimum pay. Japan treats tipping as confusing or even rude, most of Western Europe includes a service charge and welcomes small rounding up, and customs elsewhere fall everywhere between. Research your destination before traveling rather than exporting home habits.</p>
+      </details>
+      <details>
+        <summary>Should I tip a percentage of the whole bill when alcohol dominates it?</summary>
+        <p>Etiquette writers often suggest tipping 15 to 20 percent on food and around 10 percent on expensive bottles, since opening a bottle takes similar effort regardless of price. A simple compromise many tables use is tipping the full rate on everything under $100 of alcohol and half rate above it.</p>
+      </details>
+      <details>
+        <summary>How does tipping work when a restaurant adds a service charge?</summary>
+        <p>Read the line carefully. A service charge is not automatically a tip; in many places it belongs to the house unless the menu states otherwise. If a 18 to 20 percent service charge appears on a large party's check, additional tipping becomes optional rather than expected.</p>
+      </details>
+      <details>
+        <summary>What about tipping on free items like comped desserts?</summary>
+        <p>The customary move is to tip on what the comped item would have cost, because the server performed identical work. Regulars who tip generously on comps tend to receive them again.</p>
+      </details>
+    </div>
+
+    <h2>Continue Along the Docks</h2>
+    <ul>
+      <li><a href="../days-between-dates/">Days Between Dates</a> &ndash; measure any span, working days included.</li>
+      <li><a href="../final-grade-calculator/">Final Grade Calculator</a> &ndash; learn exactly what the exam requires.</li>
+      <li><a href="../paint-coverage-calculator/">Paint Coverage Calculator</a> &ndash; buy the right gallons first time.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Calc<span>Harbor</span></div>
+        <p class="footer-desc">Five careful calculators for gratuities, date spans, paint, exams, and pity odds. Free, fast, and private by design.</p>
+      </div>
+      <div>
+        <h2>The Fleet</h2>
+        <ul>
+          <li><a href="../">Tip &amp; Gratuity</a></li>
+          <li><a href="../days-between-dates/">Days Between Dates</a></li>
+          <li><a href="../paint-coverage-calculator/">Paint Coverage</a></li>
+          <li><a href="../final-grade-calculator/">Final Grade</a></li>
+          <li><a href="../gacha-pity-calculator/">Gacha Pity</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ashore</h2>
+        <ul>
+          <li><a href="../">Home Harbor</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../privacy.html">Privacy Notes</a></li>
+          <li><a href="../sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 CalcHarbor. Computed locally, served from the edge.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bIn=document.getElementById('billTotal'),
+      preset=document.getElementById('ratePreset'),
+      custom=document.getElementById('customRate'),
+      diners=document.getElementById('diners'),
+      btn=document.getElementById('calcBtn'),
+      errBox=document.getElementById('errorMsg'),
+      resWrap=document.getElementById('results'),
+      resGrat=document.getElementById('resGrat'),
+      resComb=document.getElementById('resComb'),
+      resShare=document.getElementById('resShare'),
+      shareWrap=document.getElementById('shareWrap');
+
+  function cash(n){return '$'+n.toFixed(2);}
+
+  function run(){
+    errBox.style.display='none';
+    var bill=parseFloat(bIn.value),
+        rate=parseFloat(custom.value),
+        n=parseInt(diners.value,10);
+    if(isNaN(rate)&&preset.value){rate=parseFloat(preset.value);}
+    if(isNaN(bill)||bill<0){errBox.textContent='Enter a valid bill total.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(rate)||rate<0||rate>100){errBox.textContent='Pick a common rate or enter a custom rate between 0 and 100.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(n)||n<1){errBox.textContent='At least one person must be splitting.';errBox.style.display='block';resWrap.hidden=true;return;}
+    var grat=bill*rate/100,
+        comb=bill+grat;
+    resGrat.textContent=cash(grat);
+    resComb.textContent=cash(comb);
+    if(n>1){
+      resShare.textContent=cash(comb/n);
+      shareWrap.hidden=false;
+    }else{
+      shareWrap.hidden=true;
+    }
+    resWrap.hidden=false;
+  }
+
+  btn.addEventListener('click',run);
+  [bIn,custom,diners].forEach(function(el){
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){run();}});
+  });
+})();
+</script>
+</body>
+</html>

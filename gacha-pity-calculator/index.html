@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gacha Pity Calculator – Pulls to Guaranteed Win | CalcHarbor</title>
+<meta name="description" content="Combine banner rates with your pity counter to see pulls until guarantee, next-pull chance, and expected spending. Free gacha pity calculator.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calcharbor.pages.dev/gacha-pity-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcHarbor">
+<meta property="og:title" content="Gacha Pity Calculator – Pulls to Guaranteed Win">
+<meta property="og:description" content="Know exactly where you stand in any pity system before spending a single pull.">
+<meta property="og:url" content="https://calcharbor.pages.dev/gacha-pity-calculator/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Gacha Pity Calculator",
+  "url": "https://calcharbor.pages.dev/gacha-pity-calculator/",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "description": "Free calculator that combines base banner rates with pity counters to show guarantees, chances, and expected pulls."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcharbor.pages.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Gacha Pity Calculator", "item": "https://calcharbor.pages.dev/gacha-pity-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What exactly is a pity system?",
+      "acceptedAnswer": {"@type": "Answer", "text": "A pity system guarantees a rare result after a set number of unsuccessful pulls. If a banner promises the top rarity within 90 pulls, your 90th pull cannot miss even though each individual pull carries a much smaller rate."}
+    },
+    {
+      "@type": "Question",
+      "name": "Does the pity counter reset when the guarantee triggers?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Yes. Once the guaranteed rare arrives, the counter returns to zero and begins climbing again. This calculator assumes you are measuring distance to the next trigger from your current count."}
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my game feel different from these numbers?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Many modern banners add soft pity, quietly raising rates sharply as you approach the threshold, which pulls wins earlier than raw math predicts. Hard numbers here describe the published baseline; check community-measured data for your specific game's soft pity curve."}
+    },
+    {
+      "@type": "Question",
+      "name": "Do pity counters carry over between banners?",
+      "acceptedAnswer": {"@type": "Answer", "text": "It depends on the game. Some carry the counter across rotating banners of the same type, while others wipe it when the featured lineup changes. Verify the rule before banking pulls toward a future character."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="../" class="brand">Calc<span>Harbor</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="../tip-gratuity-calculator/">Tip</a>
+      <a href="../days-between-dates/">Date Span</a>
+      <a href="../paint-coverage-calculator/">Paint</a>
+      <a href="../final-grade-calculator/">Final Grade</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../">Home</a></li>
+      <li><span aria-current="page">Gacha Pity Calculator</span></li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <h1>Gacha Pity Calculator</h1>
+    <p class="lede">Banners publish tiny rates and big guarantees. Enter both plus your current counter to see precisely how far you are from certainty and what the journey should cost.</p>
+  </section>
+
+  <div class="calc-card">
+    <h2 class="calc-title">Read Your Pity Position</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label for="baseRate">Base rate (%)</label>
+        <input type="number" id="baseRate" min="0.01" max="100" step="0.01" placeholder="0.6" inputmode="decimal">
+        <p class="hint">Published rate for the top rarity.</p>
+      </div>
+      <div class="field">
+        <label for="pityMax">Pity threshold (pulls)</label>
+        <input type="number" id="pityMax" min="2" step="1" placeholder="90" inputmode="numeric">
+        <p class="hint">Guaranteed win at this count.</p>
+      </div>
+      <div class="field">
+        <label for="curPity">Your current counter</label>
+        <input type="number" id="curPity" min="0" step="1" placeholder="74" inputmode="numeric">
+        <p class="hint">Pulls since your last rare.</p>
+      </div>
+    </div>
+    <button class="btn" id="calcBtn" type="button">Calculate Position</button>
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="results" id="results" hidden>
+      <div class="result-box primary">
+        <div class="result-label">Pulls to Guarantee</div>
+        <div class="result-value" id="resRem">0</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Next-Pull Chance</div>
+        <div class="result-value" id="resNext">0%</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Win Before Guarantee</div>
+        <div class="result-value" id="resEarly">0%</div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Expected Pulls</div>
+        <div class="result-value" id="resExp">0</div>
+      </div>
+    </div>
+  </div>
+
+  <article class="content">
+    <h2>Checking Your Position</h2>
+    <ol>
+      <li>Enter the banner's <strong>base rate</strong> for the top rarity, straight from the in-game details screen.</li>
+      <li>Enter the <strong>pity threshold</strong>, the pull count at which the game promises a win regardless of luck.</li>
+      <li>Enter <strong>your counter</strong>, meaning pulls made since your last top-rarity result.</li>
+      <li>Press <strong>Calculate Position</strong>. Four readings appear: pulls left until the guarantee fires, the chance your very next pull wins, the chance luck beats the guarantee to it, and the average number of pulls this stretch should take.</li>
+    </ol>
+
+    <h2>The Math Behind the Counter</h2>
+    <p>Pity systems blend two mechanisms: an ordinary per-pull chance, and a hard promise at the threshold. Distance to the promise is simple subtraction, but the interesting figures combine geometry-series probability with that floor:</p>
+    <div class="formula-block">remaining = threshold &minus; counter<br>win&nbsp;early = 1 &minus; (1 &minus; p)<sup>remaining&minus;1</sup><br>expected = &Sigma;&nbsp;i&middot;p&middot;(1&minus;p)<sup>i&minus;1</sup> + remaining&middot;(1&minus;p)<sup>remaining&minus;1</sup></div>
+    <p><strong>Example:</strong> a banner advertising 0.6 percent with a 90-pull guarantee, and your counter sits at 74. Sixteen pulls separate you from certainty. Your next pull still wins only 0.6 percent of the time. Luck managing an early win across the fifteen rolls before the guarantee? About 8.6 percent. The expected length of this stretch works out near 15.3 pulls, which the guarantee drags up from the 166-pull average a no-pity banner would inflict.</p>
+    <p>That last comparison explains why pity systems transformed gacha economics. Without one, waiting for a 0.6 percent event averages 167 pulls forever; with a 90-pull floor, the worst case doubles as the ceiling, and planning becomes possible.</p>
+
+    <h2>Using the Numbers Wisely</h2>
+    <ul>
+      <li><strong>Bank currency against the guarantee,</strong> not the average. Budgeting 40 pulls because the expectation says 15 is how accounts go dry at counter 88.</li>
+      <li><strong>Treat soft pity as upside.</strong> If your game secretly raises rates near the threshold, real outcomes arrive earlier than this baseline model, never later.</li>
+      <li><strong>Check carryover rules</strong> before pulling on a banner you do not want; a counter preserved is currency already spent wisely.</li>
+      <li><strong>Decide the stop line in advance.</strong> Winning early feels great; chasing a second copy past plan rarely does.</li>
+    </ul>
+
+    <h3>When Breeding Replaces Pulling</h3>
+    <p>Not every rare acquisition runs through a wish machine. Creature-collecting games increasingly move their deepest progression into breeding systems, where two parents produce offspring combining inherited traits according to fixed rules rather than dice. Palworld built its entire team-building meta on that idea, pairing species charts with passive skill inheritance, and players mapping efficient routes to a dream team get far more value from a dedicated <a href="https://usefreecalculator.com/Tools/palworld-breeding-calculator" rel="noopener">Palworld breeding planner</a> than from any probability estimate, because combination outcomes there follow lookup logic instead of luck.</p>
+
+    <h3>A Note on Published Rates</h3>
+    <p>Regulators in several countries now require games to disclose exact probabilities, which is why the base rate field can be filled honestly. Older titles predate that era, and community-measured figures fill the gap with small error bars. Either way, entering the best available number beats intuition, which reliably overestimates rare-event frequency after a few dry stretches.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>What exactly is a pity system?</summary>
+        <p>A pity system guarantees a rare result after a set number of unsuccessful pulls. If a banner promises the top rarity within 90 pulls, your 90th pull cannot miss even though each individual pull carries a much smaller rate.</p>
+      </details>
+      <details>
+        <summary>Does the pity counter reset when the guarantee triggers?</summary>
+        <p>Yes. Once the guaranteed rare arrives, the counter returns to zero and begins climbing again. This calculator assumes you are measuring distance to the next trigger from your current count.</p>
+      </details>
+      <details>
+        <summary>Why does my game feel different from these numbers?</summary>
+        <p>Many modern banners add soft pity, quietly raising rates sharply as you approach the threshold, which pulls wins earlier than raw math predicts. Hard numbers here describe the published baseline; check community-measured data for your specific game's soft pity curve.</p>
+      </details>
+      <details>
+        <summary>Do pity counters carry over between banners?</summary>
+        <p>It depends on the game. Some carry the counter across rotating banners of the same type, while others wipe it when the featured lineup changes. Verify the rule before banking pulls toward a future character.</p>
+      </details>
+    </div>
+
+    <h2>Continue Along the Docks</h2>
+    <ul>
+      <li><a href="../final-grade-calculator/">Final Grade Calculator</a> &ndash; turn semester goals into required scores.</li>
+      <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity Calculator</a> &ndash; handle celebration dinners after the win.</li>
+      <li><a href="../days-between-dates/">Days Between Dates</a> &ndash; time your currency farming between banners.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Calc<span>Harbor</span></div>
+        <p class="footer-desc">Five careful calculators for gratuities, date spans, paint, exams, and pity odds. Free, fast, and private by design.</p>
+      </div>
+      <div>
+        <h2>The Fleet</h2>
+        <ul>
+          <li><a href="../tip-gratuity-calculator/">Tip &amp; Gratuity</a></li>
+          <li><a href="../days-between-dates/">Days Between Dates</a></li>
+          <li><a href="../paint-coverage-calculator/">Paint Coverage</a></li>
+          <li><a href="../final-grade-calculator/">Final Grade</a></li>
+          <li><a href="../gacha-pity-calculator/">Gacha Pity</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ashore</h2>
+        <ul>
+          <li><a href="../">Home Harbor</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../privacy.html">Privacy Notes</a></li>
+          <li><a href="../sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 CalcHarbor. Computed locally, served from the edge.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rIn=document.getElementById('baseRate'),
+      mIn=document.getElementById('pityMax'),
+      cIn=document.getElementById('curPity'),
+      btn=document.getElementById('calcBtn'),
+      errBox=document.getElementById('errorMsg'),
+      resWrap=document.getElementById('results'),
+      resRem=document.getElementById('resRem'),
+      resNext=document.getElementById('resNext'),
+      resEarly=document.getElementById('resEarly'),
+      resExp=document.getElementById('resExp');
+
+  function run(){
+    errBox.style.display='none';
+    var p=parseFloat(rIn.value),
+        max=parseInt(mIn.value,10),
+        cur=parseInt(cIn.value,10);
+    if(isNaN(p)||p<=0||p>100){errBox.textContent='Base rate must be between 0.01 and 100 percent.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(max)||max<2){errBox.textContent='Pity threshold must be at least 2 pulls.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(isNaN(cur)||cur<0){errBox.textContent='Current counter cannot be negative.';errBox.style.display='block';resWrap.hidden=true;return;}
+    if(cur>=max){errBox.textContent='Your counter has reached the threshold; your very next pull is guaranteed. Reset the counter after claiming it.';errBox.style.display='block';resWrap.hidden=true;return;}
+    var pr=p/100,
+        rem=max-cur,
+        q=1-pr,
+        early=(1-Math.pow(q,rem-1))*100,
+        exp=0;
+    for(var i=1;i<rem;i++){exp+=i*pr*Math.pow(q,i-1);}
+    exp+=rem*Math.pow(q,rem-1);
+    resRem.textContent=rem;
+    resNext.textContent=(pr*100).toFixed(pr<0.01?4:2)+'%';
+    resEarly.textContent=(early<0.1?early.toFixed(3):early.toFixed(1))+'%';
+    resExp.textContent=exp.toFixed(1);
+    resWrap.hidden=false;
+  }
+
+  btn.addEventListener('click',run);
+  [rIn,mIn,cIn].forEach(function(el){
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'){run();}});
+  });
+})();
+</script>
+</body>
+</html>
